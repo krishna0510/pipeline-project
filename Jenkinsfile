@@ -1,17 +1,25 @@
 pipeline {
-  agent any
-  tools {
+    agent any
+    tools {
     maven 'MAVEN_HOME'
   }
-  stages {
-    stage('Build') {
-      steps {
-        sh 'make'
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-      }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'test'
+            }
+        }
+        stage('package') {
+            steps {
+                echo 'mvn package'
+            }
+        }
     }
-  }
 }
-
 
 
